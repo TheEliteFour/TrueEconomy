@@ -313,10 +313,10 @@ public class Exchange
 			return;
 		}
 		Stat.addo(val);
-		int exp=player.getTotalExperience()-amount-7;			
-			player.setExp(7);
-			player.setTotalExperience(7);
-			player.setLevel(1);
+		int exp=player.getTotalExperience()-amount;			
+			player.setExp(0);
+			player.setTotalExperience(0);
+			player.setLevel(0);
 			for (int expctr=0;expctr<exp;expctr++){
 				player.giveExp(1);
 			}
