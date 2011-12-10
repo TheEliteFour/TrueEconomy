@@ -1,0 +1,64 @@
+name: TrueEconomy
+main: net.aesircraft.TrueEconomy.TrueEconomy
+version: V1.1
+description: Complete self maintaining economic system!
+authors: [TheElite4]
+commands:
+  bal:
+    description: Displays balance.
+    usage: /<command> <player>
+  exp:
+    description: Displays Exp.
+    usage: /<command> <player>
+  credit:
+    description: Displays credit.
+    usage: /<command> <player>
+  bank:
+    description: Displays bank statistics.
+    usage: /<command>
+  buystock:
+    description: Buy stock in an ore.
+    usage: /<command> <ore> <amount>
+  sellstock:
+    description: Sell stock in an ore.
+    usage: /<command> <ore> <amount>
+  stocks:
+    description: Display Stock Market.
+    usage: /<command>
+  bounty:
+    description: Displays your bounty.
+    usage: /<command>
+  bountyboard:
+    description: Displays the bounty board.
+    usage: /<command> <page>
+  quitbounty:
+    description: Quit your bounty.
+    usage: /<command>
+  kickbounty:
+    description: Kicks accepter off your bounty.
+    usage: /<command>
+  closebounty:
+    description: Closes your bounty.
+    usage: /<command>
+  target:
+    description: Displays your target.
+    usage: /<command>
+  setbounty:
+    description: Sets a bounty.
+    usage: /<command> <target> <amount> <hidden? true/false>
+  takebounty:
+    description: Take a bounty.
+    usage: /<command> <name>
+  pay:
+    description: Pay the player.
+    usage: /<command> <name> <amount>
+  geyrir:
+    description: Pay the player (ADMIN).
+    usage: /<command> <name> <amount>
+  teyrir:
+    description: Take from Eyrir the player (ADMIN).
+    usage: /<command> <name> <amount>
+  fees:
+    description: Displays your startup fees.
+    usage: /<command>
+    

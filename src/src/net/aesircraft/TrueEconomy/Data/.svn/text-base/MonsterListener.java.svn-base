@@ -1,0 +1,104 @@
+package com.Xeology.AbsoluteEconomy.Monsters;
+
+import com.Xeology.AbsoluteEconomy.AbsoluteEconomy;
+import com.Xeology.AbsoluteEconomy.Conf.Constants;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Ghast;
+import org.bukkit.entity.Giant;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.PigZombie;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Sheep;
+import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
+import org.bukkit.entity.Squid;
+import org.bukkit.entity.Wolf;
+import org.bukkit.entity.Zombie;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageByProjectileEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityListener;
+
+
+public class MonsterListener extends EntityListener
+{
+	public static AbsoluteEconomy plugin;
+
+	public MonsterListener(AbsoluteEconomy instance)
+	{
+		plugin = instance;
+	}
+
+	@Override
+	public void onEntityDamage(EntityDamageEvent event)
+	{
+	if (event.isCancelled()) {
+      return;
+    }
+	if ((event instanceof EntityDamageByEntityEvent)) {		
+      EntityDamageByEntityEvent event2 = (EntityDamageByEntityEvent)event;	  
+      damaged(event2.getEntity(), event2.getDamager() instanceof Player ? (Player) event2.getDamager():null);
+    } else if ((event instanceof EntityDamageByProjectileEvent)) {
+      EntityDamageByProjectileEvent event2 = (EntityDamageByProjectileEvent)event;
+      damaged(event2.getEntity(), event2.getDamager() instanceof Player ? (Player) event2.getDamager():null);
+    } else {
+      damaged(event.getEntity(),null);
+    }
+	}
+	@Override
+	public void onEntityDeath(EntityDeathEvent event)
+  {
+	 if (Constants.monMap.get(event.getEntity())!=null)
+		proc(event.getEntity());
+	
+  }
+	
+	
+	protected static void damaged(Entity monster,Player player){
+		if (Constants.useMonsters&&!(monster instanceof Player)){
+		Constants.monMap.put(monster, player);
+		return;
+		}		
+		if (Constants.usePVP&&(monster instanceof Player)){			
+			Constants.pvpMap.put(monster, player);
+		}
+	}
+	
+	public static void proc(Entity monster){
+		String name="NULLSHOCK";
+		if (monster instanceof Zombie)
+		name="ZOMBIE";
+		if (monster instanceof Ghast)
+		name="GHAST";
+		if (monster instanceof Skeleton)
+		name="SKELETON";
+		if (monster instanceof Spider)
+		name="SPIDER";
+		if (monster instanceof Creeper)
+		name="CREEPER";
+		if (monster instanceof PigZombie)
+		name="PIGMAN";
+		if (monster instanceof Slime)
+		name="SLIME";
+		if (monster instanceof Giant)
+		name="GIANT";
+		if (monster instanceof Wolf)
+		name="WOLF";
+		if (monster instanceof Sheep)
+		name="SHEEP";
+		if (monster instanceof Cow)
+		name="COW";
+		if (monster instanceof Pig)
+		name="PIG";	
+		if (monster instanceof Squid)
+		name="SQUID";		
+			
+		if (plugin.permissionHandler.has(Constants.monMap.get(monster), "absoluteeconomy.bounty.monster"))
+			Payment.payment(Constants.monMap.get(monster), name,monster);
+		Constants.monMap.remove(monster);
+	}
+}
